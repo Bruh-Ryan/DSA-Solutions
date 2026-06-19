@@ -1,0 +1,39 @@
+import java.util.*;
+class permutaionOfStrings{
+    static ArrayList<String> arr = new ArrayList<>();
+    public static void main(String []ar){
+        String s ="ABCD";
+        // O/P->>"ABC", "ACB", "BAC", "BCA", "CAB", "CBA"
+        
+        if(s.length()==1){
+            System.out.println(s);
+            return;
+        }
+        permutate(s,"");
+        System.out.println(arr);
+    }
+    public static void permutate(String s,String ans){
+        if(s.length()==0){
+            arr.add(ans);
+            return;
+        }
+        for(int j=0;j<s.length();j++){
+            char curr = s.charAt(j);
+            
+            String remain = findTrim(s,j);
+            
+            permutate(remain,ans+curr);
+        }
+        
+    }
+    public static String findTrim(String s,int c){
+        String trim = "";
+        for(int i=0;i<s.length();i++){
+            if(i==c){
+                continue;
+            }
+            trim+=s.charAt(i);
+        }
+        return trim;
+    }
+}
