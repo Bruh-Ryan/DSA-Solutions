@@ -1,0 +1,18 @@
+//All subsequences of a string
+import java.util.*;
+class findSubOfString {
+    public static void main(String[] args) {
+        String s = "abcd";
+        ArrayList<String>arr = new ArrayList<>();
+        arr.add("_");
+        System.out.print(arr.size());
+        for(int i = 0; i<s.length();i++){
+            char cur = s.charAt(i);
+            int curSize = arr.size();
+            for(int j=0;j<curSize;j++){
+                arr.add(arr.get(j)+cur);
+                System.out.println(arr);
+            }
+        }
+    }
+}
