@@ -1,6 +1,7 @@
 //All subsequences of a string
 import java.util.*;
 class findSubOfString {
+        static ArrayList<String> sb = new ArrayList<>();
     public static void main(String[] args) {
         String s = "abcd";
         ArrayList<String>arr = new ArrayList<>();
@@ -14,5 +15,23 @@ class findSubOfString {
                 System.out.println(arr);
             }
         }
+        findSub(s,"");
+        System.out.println("Opti method: "+ sb);
+    }
+    //optimised method or say another method:::
+    public static void findSub(String s, String ans){
+        if(s.length()==0){
+            sb.add(ans);
+            return;
+        }
+        findSub(trim(s),ans+s.charAt(0));
+        findSub(trim(s),ans);
+    }
+    public static String trim(String s){
+        String trim = "";
+        for(int i = 1;i<s.length();i++){
+            trim += s.charAt(i);
+        }
+        return trim;
     }
 }
