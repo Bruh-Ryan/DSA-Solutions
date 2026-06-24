@@ -1,3 +1,6 @@
+//Given binary string s . find the maximum number of substrings it can be splitted into 
+//such that all substrings have equal number of 0s and 1s.
+// If it is not possible to split s satisfying the conditions then return -1.
 class Split_a_binary_string_into_substrings  {
     public static void main(String[] args) {
         String s = "01100";
