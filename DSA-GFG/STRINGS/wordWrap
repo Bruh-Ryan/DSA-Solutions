@@ -1,0 +1,66 @@
+class wordWrap {
+    public static void main(String []ars){
+        int []arr = {3,2,2,5};
+        System.out.println(solveWordWrap(arr,6));
+    }
+    public static int solveWordWrap(int[] nums, int k) {
+        int n = nums.length;
+        
+        // This array acts as our memory notebook.
+        // dp[i] will store the minimum cost to arrange all words starting from index 'i' to the end.
+        int[] dp = new int[n];
+        
+        // Step 1: Initialize the notebook with maximum values so we can find the minimums later.
+        for(int i = 0; i < n; i++) {
+            dp[i] = Integer.MAX_VALUE;
+        }
+        
+        // Step 2: The Base Case (The very last item)
+        // If we are looking at just the last word, it goes on the last line. Last line cost is always 0.
+        dp[n-1] = 0; 
+        
+        // Step 3: Work backward from the second-to-last word, all the way to the first word (index 0).
+        for(int i = n - 2; i >= 0; i--) {
+            
+            int currentLineLength = 0; // Keeps track of how full our current "box" is.
+            
+            // Try packing words starting from 'i', then 'i+1', 'i+2', etc., into the current line.
+            for(int j = i; j < n; j++) {
+                
+                // Add the weight of the current word
+                currentLineLength += nums[j]; 
+                
+                // If it's not the first word in the box, we MUST add a space (+1)
+                if(j > i) {
+                    currentLineLength += 1;
+                }
+                
+                // If the box overflows the limit 'k', we can't pack any more words on this line. 
+                // Break out of this inner loop.
+                if(currentLineLength > k) {
+                    break; 
+                }
+                
+                // If the box hasn't overflowed, calculate the cost of making this choice.
+                int cost;
+                
+                // Rule: If this line contains the very last word of the array, the penalty is 0.
+                if(j == n - 1) {
+                    cost = 0;
+                } else {
+                    // Otherwise, the penalty is the empty spaces squared.
+                    int emptySpaces = k - currentLineLength;
+                    
+                    // Total cost = (penalty of this line) + (the best arrangement for all remaining words)
+                    cost = (emptySpaces * emptySpaces) + dp[j + 1];
+                }
+                
+                // Record the best (minimum) cost found for arranging words starting at index 'i'.
+                dp[i] = Math.min(dp[i], cost);
+            }
+        }
+        
+        // By the time the loops finish, dp[0] contains the minimum cost to arrange everything!
+        return dp[0]; 
+    }
+}
