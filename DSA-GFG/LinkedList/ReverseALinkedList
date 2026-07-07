@@ -1,0 +1,71 @@
+public class ReverseALinkedList {
+    public static void main(String[] args) {
+        MyLinkedList list = new MyLinkedList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        list.printList();   // 1 -> 2 -> 3 -> null
+        list.reversePrintList();
+        list.printList();
+    }
+}
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class MyLinkedList {
+    Node head;   // the single entry point into the whole structure
+
+    // Insertion at the end
+    void add(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;   // list was empty; new node becomes the entry point
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null) {   // walk until we find the last node
+            temp = temp.next;
+        }
+        temp.next = newNode;   // attach new node after the current last one
+    }
+ void reversePrintList(){
+    Node prev = null;
+    Node curr = head;
+    
+    while(curr != null){
+        Node nextNode = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nextNode;
+    }
+    
+    head = prev;   // <-- this line was missing
+
+    Node temp = head;
+    while (temp != null) {
+        System.out.print(temp.data + " -> ");
+        temp = temp.next;
+    }
+    System.out.println("null");
+}
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+}
