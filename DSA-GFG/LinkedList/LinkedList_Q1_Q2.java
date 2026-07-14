@@ -11,6 +11,8 @@ class LinkedList_Q1_Q2 {
         l.showLinkedList();
         l.reverse();
         l.showLinkedList();
+        l.reverse_a_batch(4);
+        l.showLinkedList();
     }
 }
 class Node{
@@ -73,14 +75,35 @@ class LinkedList{
         }
         
     }
-    //Question 1 -> Write a Program to reverse the Linked List. (Iterative )
+    public static void reverse_a_batch(int k){
+        head =  reverse_a_batch_helper( head, k );
+    }
+    public static Node reverse_a_batch_helper(Node startNode, int k){
+        Node prev = null;
+        Node temp = null;
+        Node curr = startNode;
+        int n =1;
+        
+        while(curr!=null && n<=k){
+            temp = curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=temp;
+            n++;
+        }
+        if(curr!=null){
+            startNode.next=reverse_a_batch_helper(curr,k);
+        }
+        return prev;
+        
+    }
     public static void reverse(){
         Node prev = null;
         Node temp = null;
         Node cur = head;
         
         if(head.next==null){
-                System.out.print("cur.next mean that my head is verymuch null");//debug
+                // System.out.print("cur.next mean that my head is verymuch null");//debug
                 showLinkedList();
                 return;
             }
